@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block title %}About Us - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+        <div class="p-8 md:p-12 text-center md:text-left">
+            <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-6">About Us</h1>
+            <div class="w-20 h-1 bg-indigo-600 mb-8 mx-auto md:mx-0 rounded-full"></div>
+            
+            <div class="prose prose-indigo max-w-none text-gray-600 space-y-6">
+                <p class="text-lg leading-relaxed">
+                    Welcome to our platform! We are an innovative e-commerce store dedicated to bringing you the highest quality products at irresistible prices. Operating out of Juba, South Sudan, we strive for operational excellence and maximum customer satisfaction.
+                </p>
+                <p class="leading-relaxed">
+                    Our mission is to empower communities by providing seamless access to top-tier goods. Whether you're looking for everyday essentials, tech gadgets, or stylish apparel, we curate our catalogue with strict standards.
+                </p>
+                <div class="bg-indigo-50 rounded-xl p-6 mt-8">
+                    <h3 class="text-xl font-bold text-indigo-900 mb-2">Our Promise</h3>
+                    <p class="text-indigo-800">
+                        We stand behind every product we sell. With secure checkouts, blazing fast delivery logistics, and dedicated round-the-clock support, your shopping experience is guaranteed to be incredibly smooth.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="{% url 'products:product_list' %}" class="inline-flex justify-center items-center py-3 px-8 border border-transparent rounded-xl shadow-md text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 transition duration-200">
+                    Explore Products
+                </a>
+                <a href="{% url 'core:contact' %}" class="inline-flex justify-center items-center py-3 px-8 border border-gray-300 rounded-xl text-base font-semibold text-gray-700 bg-white hover:bg-gray-50 transition duration-200">
+                    Get in Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

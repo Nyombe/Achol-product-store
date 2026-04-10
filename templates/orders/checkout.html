@@ -1,0 +1,134 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Checkout - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">Secure Checkout</h1>
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- Checkout Form -->
+        <div class="lg:col-span-7">
+            <div class="bg-white rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100 p-8 transform transition-all duration-300">
+                <div class="flex items-center mb-6 border-b border-gray-100 pb-4">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold text-sm mr-3">1</div>
+                    <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Shipping Details</h2>
+                </div>
+                
+                <form method="post" class="space-y-6">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                    <div class="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
+                        <div class="text-sm text-red-700">{{ form.non_field_errors }}</div>
+                    </div>
+                    {% endif %}
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {% for field in form %}
+                        <div class="{% if field.name == 'shipping_address' or field.name == 'notes' %}md:col-span-2{% endif %}">
+                            <label for="{{ field.id_for_label }}" class="block text-sm font-semibold text-gray-700 mb-1.5 ml-1">
+                                {{ field.label }}
+                            </label>
+                            <div class="relative">
+                                {{ field }}
+                            </div>
+                            {% if field.errors %}
+                            <p class="mt-1 text-sm text-red-600 font-medium">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="mt-10 pt-6 flex items-center justify-between">
+                        <a href="{% url 'cart:cart' %}" class="text-gray-500 hover:text-indigo-600 font-medium transition duration-150 flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                            Back to Cart
+                        </a>
+                        <button type="submit" class="inline-flex justify-center items-center py-3.5 px-8 border border-transparent rounded-xl shadow-md text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-transform duration-200 hover:scale-[1.02]">
+                            Place Order
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Order Summary side panel -->
+        <div class="lg:col-span-5">
+            <div class="bg-gray-50 rounded-2xl p-6 shadow-[0_4px_20px_rgb(0,0,0,0.03)] border border-gray-100 lg:sticky lg:top-8 transition-all hover:border-gray-200">
+                <h2 class="text-xl font-bold text-gray-900 mb-6 tracking-tight">Order Summary</h2>
+                
+                <div class="space-y-5 mb-6 max-h-[22rem] overflow-y-auto pr-2 custom-scrollbar">
+                    {% for item in cart.items.all %}
+                    <div class="flex items-center justify-between bg-white p-3 rounded-xl shadow-sm border border-gray-50">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-14 h-14 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-center overflow-hidden">
+                                {% with image=item.product.images.first %}
+                                    {% if image and image.image %}
+                                    <img src="{{ image.image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                                    {% else %}
+                                    <span class="text-xs text-gray-400 font-medium">No Img</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-sm font-bold text-gray-900 line-clamp-1">{{ item.product.name }}</h4>
+                                <p class="text-xs font-semibold text-gray-500 mt-0.5">Qty: <span class="text-indigo-600">{{ item.quantity }}</span></p>
+                            </div>
+                        </div>
+                        <span class="text-sm font-bold text-gray-900 pl-4 whitespace-nowrap">US${{ item.price }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="border-t border-gray-200 pt-5 space-y-3">
+                    <div class="flex justify-between text-sm text-gray-600 font-medium">
+                        <span>Subtotal</span>
+                        <span>US${{ cart.get_total_price }}</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-600 font-medium">
+                        <span>Shipping</span>
+                        <span class="text-green-600">Free</span>
+                    </div>
+                    <div class="border-t border-gray-200 pt-4 flex justify-between items-end">
+                        <div>
+                            <span class="text-lg font-bold text-gray-900">Total</span>
+                            <p class="text-xs text-gray-500 mt-1">Including VAT</p>
+                        </div>
+                        <span class="text-2xl font-black text-indigo-600 tracking-tight">US${{ cart.get_total_price }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Automatically style Django fields to look premium
+        const inputs = document.querySelectorAll('input, select, textare');
+        inputs.forEach(input => {
+            if (input.type !== 'checkbox' && input.type !== 'radio' && input.type !== 'hidden') {
+                input.classList.add('appearance-none', 'block', 'w-full', 'px-4', 'py-3.5', 'border', 'border-gray-200', 'rounded-xl', 'shadow-sm', 'placeholder-gray-400', 'focus:outline-none', 'focus:ring-2', 'focus:ring-indigo-500', 'focus:border-transparent', 'transition', 'duration-200', 'bg-gray-50', 'hover:bg-white', 'text-sm', 'font-medium');
+            }
+        });
+    });
+</script>
+<style>
+/* Custom scrollbar for order summary */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1; 
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}
+</style>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Shopping Cart - E-Commerce Store{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto py-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">Your Shopping Cart</h1>
+    
+    {% if cart_items %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Cart Items -->
+        <div class="lg:col-span-2 space-y-6">
+            {% for item in cart_items %}
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex items-center transform transition duration-300 hover:shadow-md hover:-translate-y-0.5">
+                <div class="flex-shrink-0 w-24 h-24 bg-gray-100 rounded-xl overflow-hidden border border-gray-50">
+                    {% with image=item.product.images.first %}
+                        {% if image and image.image %}
+                        <img src="{{ image.image.url }}" alt="{{ item.product.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center text-xs text-gray-400">No Image</div>
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <div class="ml-6 flex-1">
+                    <div class="flex justify-between">
+                        <h3 class="text-lg font-bold text-gray-900 hover:text-indigo-600 transition tracking-tight">
+                            <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>
+                        </h3>
+                        <p class="text-lg font-bold text-gray-900">US${{ item.price }}</p>
+                    </div>
+                    <div class="mt-4 flex flex-wrap items-center justify-between gap-y-4">
+                        <form method="post" action="{% url 'cart:update_cart_item' item.id %}" class="flex items-center space-x-3 bg-gray-50 p-1.5 rounded-lg border border-gray-200">
+                            {% csrf_token %}
+                            <label for="quantity-{{ item.id }}" class="text-sm font-medium text-gray-600 pl-2">Qty:</label>
+                            <input type="number" name="quantity" id="quantity-{{ item.id }}" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" class="w-16 px-2 py-1 text-center bg-white border border-gray-200 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-semibold">
+                            <button type="submit" class="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition pr-2">Update</button>
+                        </form>
+                        <form method="post" action="{% url 'cart:remove_from_cart' item.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="text-sm text-red-500 hover:text-red-700 font-semibold transition duration-150 flex items-center px-3 py-1.5 rounded-lg hover:bg-red-50">
+                                <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Remove
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="bg-white rounded-2xl p-6 lg:h-max shadow-sm border border-gray-100 relative overflow-hidden group">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-500 transform origin-left transition-transform duration-500"></div>
+            <h2 class="text-xl font-bold text-gray-900 mb-6 tracking-tight">Order Summary</h2>
+            <div class="space-y-4">
+                <div class="flex justify-between text-gray-600">
+                    <span>Subtotal</span>
+                    <span class="font-medium text-gray-900">US${{ total_price }}</span>
+                </div>
+                {% if total_discount %}
+                <div class="flex justify-between text-green-600 font-medium">
+                    <span>Discount</span>
+                    <span>-US${{ total_discount }}</span>
+                </div>
+                {% endif %}
+                <div class="border-t border-gray-100 pt-4 flex justify-between items-center">
+                    <span class="text-lg font-bold text-gray-900">Total</span>
+                    <span class="text-2xl font-black text-indigo-600 tracking-tight">US${{ cart.get_total_price }}</span>
+                </div>
+            </div>
+            <a href="{% url 'orders:checkout' %}" class="mt-8 w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-md text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:scale-[1.02]">
+                Proceed to Checkout
+                <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+            <p class="mt-4 text-center text-xs text-gray-500 flex items-center justify-center">
+                <svg class="w-4 h-4 mr-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Secure Checkout Checkout
+            </p>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-20 bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
+        <div class="w-32 h-32 bg-indigo-50 rounded-full flex items-center justify-center mx-auto mb-8 text-indigo-300">
+            <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
+        </div>
+        <h2 class="text-3xl font-extrabold text-gray-900 mb-3 tracking-tight">Your cart is empty</h2>
+        <p class="text-gray-500 mb-10 text-lg">Looks like you haven't added anything to your cart yet.</p>
+        <a href="{% url 'products:product_list' %}" class="inline-flex items-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-xl shadow-md text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all duration-200 hover:-translate-y-1">
+            Explore Products
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
