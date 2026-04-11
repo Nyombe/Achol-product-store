@@ -157,12 +157,9 @@ class CheckoutAPIView(generics.CreateAPIView):
             user=user,
             subtotal=cart.get_total_price(),
             total_amount=cart.get_total_price(),
-            shipping_address=serializer.validated_data['shipping_address'],
-            shipping_city=serializer.validated_data['shipping_city'],
-            shipping_state=serializer.validated_data['shipping_state'],
-            shipping_postal_code=serializer.validated_data['shipping_postal_code'],
-            shipping_country=serializer.validated_data['shipping_country'],
-            shipping_phone=serializer.validated_data['shipping_phone'],
+            delivery_address=serializer.validated_data['delivery_address'],
+            delivery_location=serializer.validated_data['delivery_location'],
+            delivery_phone=serializer.validated_data['delivery_phone'],
             notes=serializer.validated_data.get('notes', ''),
         )
         
@@ -330,12 +327,9 @@ class CheckoutView(LoginRequiredMixin, TemplateView):
         
         context['cart'] = cart
         context['form'] = CheckoutForm(initial={
-            'shipping_address': user.street_address,
-            'shipping_city': user.city,
-            'shipping_state': user.state,
-            'shipping_postal_code': user.postal_code,
-            'shipping_country': user.country,
-            'shipping_phone': user.phone_number,
+            'delivery_address': user.street_address,
+            'delivery_location': user.location,
+            'delivery_phone': user.phone_number,
         })
         return context
 

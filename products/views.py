@@ -153,10 +153,7 @@ class ProductDetailView(DetailView):
         
         context['price_history'] = product.price_history.all()[:10]
         context['reviews'] = product.reviews.filter(is_approved=True)
-        context['related_products'] = Product.objects.filter(
-            category=product.category,
-            is_active=True
-        ).exclude(id=product.id)[:6]
+        context['related_products'] = product.get_recommendations(limit=6)
         
         return context
 

@@ -6878,3 +6878,192 @@ INFO 2026-04-10 06:41:32,451 log 18688 19000 "GET / HTTP/1.1" 200 15699
 INFO 2026-04-10 06:51:54,800 log 18688 20388 "GET /home HTTP/1.1" 302 0
 INFO 2026-04-10 06:51:54,856 log 18688 20388 "GET / HTTP/1.1" 200 15953
 INFO 2026-04-10 06:52:34,022 log 18688 20388 "GET /contact/ HTTP/1.1" 200 15305
+INFO 2026-04-11 10:07:35,414 autoreload 17348 9744 Watching for file changes with StatReloader
+INFO 2026-04-11 10:09:15,491 log 17348 18024 "HEAD / HTTP/1.1" 200 0
+INFO 2026-04-11 10:09:15,515 log 17348 18024 "GET / HTTP/1.1" 200 15699
+INFO 2026-04-11 10:14:36,394 log 17348 2620 "GET / HTTP/1.1" 200 15699
+INFO 2026-04-11 10:14:36,513 log 17348 2620 "GET /media/products/men.jpg HTTP/1.1" 304 0
+INFO 2026-04-11 10:14:36,513 log 17348 14724 "GET /media/products/sh2.jpg HTTP/1.1" 304 0
+INFO 2026-04-11 10:14:36,856 log 17348 14724 "GET /media/products/sh.jpg HTTP/1.1" 304 0
+WARNING 2026-04-11 10:14:38,209 log 17348 14724 Not Found: /favicon.ico
+WARNING 2026-04-11 10:14:38,227 log 17348 14724 "GET /favicon.ico HTTP/1.1" 404 4994
+INFO 2026-04-11 10:14:44,499 log 17348 14724 "GET /products/26364/ HTTP/1.1" 200 16589
+INFO 2026-04-11 10:14:58,110 log 17348 14724 "GET / HTTP/1.1" 200 15699
+INFO 2026-04-11 10:15:03,418 log 17348 14724 "GET /products/2135/ HTTP/1.1" 200 16568
+INFO 2026-04-11 10:16:14,746 log 17348 14724 "GET /products/ HTTP/1.1" 200 16177
+INFO 2026-04-11 10:37:44,083 autoreload 17348 9744 D:\Achol\products\models.py changed, reloading.
+INFO 2026-04-11 10:37:45,089 autoreload 18028 16588 Watching for file changes with StatReloader
+INFO 2026-04-11 10:38:04,636 autoreload 18028 16588 D:\Achol\products\views.py changed, reloading.
+INFO 2026-04-11 10:38:05,705 autoreload 5416 6916 Watching for file changes with StatReloader
+INFO 2026-04-11 10:48:16,047 log 5416 3280 "GET / HTTP/1.1" 200 15699
+INFO 2026-04-11 10:48:24,594 basehttp 5416 3280 - Broken pipe from ('127.0.0.1', 58593)
+INFO 2026-04-11 10:48:24,620 log 5416 10516 "GET /products/26364/ HTTP/1.1" 200 16589
+INFO 2026-04-11 10:48:33,023 log 5416 10516 "GET /products/26364/ HTTP/1.1" 200 16589
+INFO 2026-04-11 11:05:06,995 log 5416 13464 "POST /cart/add/26364/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:05:07,017 log 5416 13464 "GET /auth/login/?next=/cart/add/26364/ HTTP/1.1" 200 13133
+INFO 2026-04-11 11:05:20,264 log 5416 13464 "GET /auth/register/ HTTP/1.1" 200 15063
+INFO 2026-04-11 11:07:10,766 log 5416 13464 "POST /auth/register/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:07:10,777 log 5416 13464 "GET /auth/login/ HTTP/1.1" 200 13133
+INFO 2026-04-11 11:07:18,417 log 5416 13464 "POST /auth/login/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:07:18,464 log 5416 13464 "GET / HTTP/1.1" 200 15949
+ERROR 2026-04-11 11:07:26,850 log 5416 13464 Internal Server Error: /auth/profile/
+Traceback (most recent call last):
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Achol\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/profile.html
+ERROR 2026-04-11 11:07:26,857 log 5416 13464 "GET /auth/profile/ HTTP/1.1" 500 92831
+ERROR 2026-04-11 11:07:32,714 log 5416 13464 Internal Server Error: /auth/profile/
+Traceback (most recent call last):
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\base.py", line 221, in _get_response
+    response = response.render()
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 90, in rendered_content
+    template = self.resolve_template(self.template_name)
+  File "D:\Achol\venv\Lib\site-packages\django\template\response.py", line 72, in resolve_template
+    return select_template(template, using=self.using)
+  File "D:\Achol\venv\Lib\site-packages\django\template\loader.py", line 47, in select_template
+    raise TemplateDoesNotExist(", ".join(template_name_list), chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/profile.html
+ERROR 2026-04-11 11:07:32,718 log 5416 13464 "GET /auth/profile/ HTTP/1.1" 500 92831
+INFO 2026-04-11 11:07:36,657 log 5416 13464 "GET /products/2133/ HTTP/1.1" 200 16823
+INFO 2026-04-11 11:07:39,477 log 5416 13464 "POST /cart/add/2133/ HTTP/1.1" 200 99
+INFO 2026-04-11 11:07:39,559 log 5416 13464 "GET /cart/ HTTP/1.1" 200 16175
+WARNING 2026-04-11 11:07:53,549 log 5416 13464 Not Found: /orders/checkout/
+WARNING 2026-04-11 11:07:53,551 log 5416 13464 "GET /orders/checkout/ HTTP/1.1" 404 4011
+INFO 2026-04-11 11:08:05,255 log 5416 13464 "POST /cart/remove/1/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:08:05,283 log 5416 13464 "GET /cart/ HTTP/1.1" 200 11532
+INFO 2026-04-11 11:08:18,659 log 5416 13464 "POST /cart/add/2133/ HTTP/1.1" 200 99
+INFO 2026-04-11 11:08:18,730 log 5416 13464 "GET /cart/ HTTP/1.1" 200 16175
+INFO 2026-04-11 11:09:22,282 autoreload 5328 19788 Watching for file changes with StatReloader
+INFO 2026-04-11 11:09:26,805 log 5328 14220 "GET / HTTP/1.1" 200 16527
+INFO 2026-04-11 11:09:42,249 log 5328 14220 "GET /products/2135/ HTTP/1.1" 200 17396
+INFO 2026-04-11 11:09:44,656 log 5328 14220 "POST /cart/add/2135/ HTTP/1.1" 200 98
+INFO 2026-04-11 11:09:44,739 log 5328 14220 "GET /cart/ HTTP/1.1" 200 19001
+WARNING 2026-04-11 11:09:46,432 log 5328 14220 Not Found: /orders/checkout/
+WARNING 2026-04-11 11:09:46,433 log 5328 14220 "GET /orders/checkout/ HTTP/1.1" 404 4011
+INFO 2026-04-11 11:10:21,070 log 5328 14220 "GET / HTTP/1.1" 200 16527
+INFO 2026-04-11 11:11:32,390 log 5328 14220 "GET /products/2133/ HTTP/1.1" 200 17401
+INFO 2026-04-11 11:11:34,580 log 5328 14220 "POST /cart/add/2133/ HTTP/1.1" 200 99
+INFO 2026-04-11 11:11:34,652 log 5328 14220 "GET /cart/ HTTP/1.1" 200 19003
+WARNING 2026-04-11 11:11:36,650 log 5328 14220 Not Found: /orders/checkout/
+WARNING 2026-04-11 11:11:36,651 log 5328 14220 "GET /orders/checkout/ HTTP/1.1" 404 4011
+INFO 2026-04-11 11:14:27,795 autoreload 5328 19788 D:\Achol\orders\urls\web.py changed, reloading.
+INFO 2026-04-11 11:14:28,727 autoreload 14284 6668 Watching for file changes with StatReloader
+INFO 2026-04-11 11:15:18,277 log 14284 2232 "GET /orders/checkout/ HTTP/1.1" 200 22299
+INFO 2026-04-11 11:21:37,510 autoreload 14284 6668 D:\Achol\users\models.py changed, reloading.
+INFO 2026-04-11 11:21:39,127 autoreload 18596 10952 Watching for file changes with StatReloader
+INFO 2026-04-11 11:26:12,732 autoreload 18596 10952 D:\Achol\orders\models.py changed, reloading.
+INFO 2026-04-11 11:26:13,971 autoreload 20224 4944 Watching for file changes with StatReloader
+ERROR 2026-04-11 11:26:25,343 log 20224 14504 Internal Server Error: /orders/checkout/
+Traceback (most recent call last):
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: users_customuser.location
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "D:\Achol\venv\Lib\site-packages\django\core\handlers\base.py", line 198, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "D:\Achol\venv\Lib\site-packages\django\views\generic\base.py", line 106, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\contrib\auth\mixins.py", line 72, in dispatch
+    if not request.user.is_authenticated:
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\utils\functional.py", line 251, in inner
+    self._setup()
+    ~~~~~~~~~~~^^
+  File "D:\Achol\venv\Lib\site-packages\django\utils\functional.py", line 404, in _setup
+    self._wrapped = self._setupfunc()
+                    ~~~~~~~~~~~~~~~^^
+  File "D:\Achol\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 40, in <lambda>
+    request.user = SimpleLazyObject(lambda: get_user(request))
+                                            ~~~~~~~~^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\contrib\auth\middleware.py", line 20, in get_user
+    request._cached_user = auth.get_user(request)
+                           ~~~~~~~~~~~~~^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\contrib\auth\__init__.py", line 318, in get_user
+    user = backend.get_user(user_id)
+  File "D:\Achol\venv\Lib\site-packages\django\contrib\auth\backends.py", line 232, in get_user
+    user = UserModel._default_manager.get(pk=user_id)
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\query.py", line 635, in get
+    num = len(clone)
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\query.py", line 372, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\query.py", line 2000, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\query.py", line 95, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "D:\Achol\venv\Lib\site-packages\django\db\models\sql\compiler.py", line 1624, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 122, in execute
+    return super().execute(sql, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "D:\Achol\venv\Lib\site-packages\django\db\backends\sqlite3\base.py", line 359, in execute
+    return super().execute(query, params)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+django.db.utils.OperationalError: no such column: users_customuser.location
+ERROR 2026-04-11 11:26:25,404 log 20224 14504 "GET /orders/checkout/ HTTP/1.1" 500 185688
+INFO 2026-04-11 11:28:02,978 log 20224 14504 "GET /orders/checkout/ HTTP/1.1" 200 20541
+INFO 2026-04-11 11:28:51,199 log 20224 14504 "POST /orders/checkout/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:28:51,228 log 20224 14504 "GET /orders/confirmation/ORD-4C080C06AE2A/ HTTP/1.1" 200 13249
+INFO 2026-04-11 11:28:58,104 log 20224 14504 "GET /orders/ORD-4C080C06AE2A/ HTTP/1.1" 200 17030
+INFO 2026-04-11 11:29:12,242 log 20224 14504 "GET /admin/orders/order/1/change/ HTTP/1.1" 302 0
+INFO 2026-04-11 11:29:12,349 log 20224 14504 "GET /admin/login/?next=/admin/orders/order/1/change/ HTTP/1.1" 200 3523
+INFO 2026-04-11 11:29:12,609 log 20224 2620 "GET /static/vendor/adminlte/css/adminlte.min.css HTTP/1.1" 200 298755
+INFO 2026-04-11 11:29:12,610 log 20224 15652 "GET /static/jazzmin/css/main.css HTTP/1.1" 200 14372
+INFO 2026-04-11 11:29:12,618 log 20224 15652 "GET /static/vendor/adminlte/img/AdminLTELogo.png HTTP/1.1" 200 2637
+INFO 2026-04-11 11:29:12,621 log 20224 14504 "GET /static/vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 103010
+INFO 2026-04-11 11:29:12,625 log 20224 2620 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2026-04-11 11:29:12,652 log 20224 14504 "GET /static/vendor/adminlte/js/adminlte.min.js HTTP/1.1" 200 18270
+INFO 2026-04-11 11:29:12,653 log 20224 2620 "GET /static/vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 80721
+INFO 2026-04-11 11:29:14,038 log 20224 2620 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 200 156400
+INFO 2026-04-11 11:32:30,600 log 20224 2620 "GET /orders/ORD-4C080C06AE2A/ HTTP/1.1" 200 16461
+INFO 2026-04-11 11:32:47,930 log 20224 2620 "GET /contact/ HTTP/1.1" 200 15301

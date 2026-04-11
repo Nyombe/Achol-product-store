@@ -65,7 +65,7 @@ class CustomUserChangeForm(UserChangeForm):
         model = CustomUser
         fields = (
             'first_name', 'last_name', 'phone_number', 'date_of_birth',
-            'street_address', 'city', 'state', 'postal_code', 'country'
+            'street_address', 'location'
         )
         widgets = {
             'date_of_birth': forms.DateInput(attrs={'type': 'date'}),
@@ -73,10 +73,7 @@ class CustomUserChangeForm(UserChangeForm):
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
             'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             'street_address': forms.TextInput(attrs={'class': 'form-control'}),
-            'city': forms.TextInput(attrs={'class': 'form-control'}),
-            'state': forms.TextInput(attrs={'class': 'form-control'}),
-            'postal_code': forms.TextInput(attrs={'class': 'form-control'}),
-            'country': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
 

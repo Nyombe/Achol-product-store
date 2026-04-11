@@ -125,13 +125,10 @@ class Order(BaseModel):
     discount_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0, validators=[MinValueValidator(0)])
     total_amount = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0)])
     
-    # Shipping info
-    shipping_address = models.CharField(max_length=500)
-    shipping_city = models.CharField(max_length=100)
-    shipping_state = models.CharField(max_length=100)
-    shipping_postal_code = models.CharField(max_length=20)
-    shipping_country = models.CharField(max_length=100)
-    shipping_phone = models.CharField(max_length=20)
+    # Delivery info
+    delivery_address = models.CharField(max_length=500, verbose_name="Delivery Address", default="")
+    delivery_location = models.CharField(max_length=100, verbose_name="Delivery Area/Neighborhood", default="")
+    delivery_phone = models.CharField(max_length=20, verbose_name="Delivery Phone", default="")
     
     # Additional info
     notes = models.TextField(blank=True)
@@ -163,14 +160,11 @@ class Order(BaseModel):
             self.order_number = f"ORD-{uuid.uuid4().hex[:12].upper()}"
         super().save(*args, **kwargs)
 
-    def get_shipping_address(self):
-        """Get formatted shipping address."""
+    def get_delivery_address(self):
+        """Get formatted delivery address."""
         address_parts = [
-            self.shipping_address,
-            self.shipping_city,
-            self.shipping_state,
-            self.shipping_postal_code,
-            self.shipping_country,
+            self.delivery_address,
+            self.delivery_location,
         ]
         return ', '.join([part for part in address_parts if part])
 

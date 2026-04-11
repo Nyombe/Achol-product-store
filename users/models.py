@@ -13,10 +13,7 @@ class CustomUser(AbstractUser):
     
     # Address fields
     street_address = models.CharField(max_length=255, blank=True)
-    city = models.CharField(max_length=100, blank=True)
-    state = models.CharField(max_length=100, blank=True)
-    postal_code = models.CharField(max_length=20, blank=True)
-    country = models.CharField(max_length=100, blank=True)
+    location = models.CharField(max_length=100, blank=True, verbose_name="City Area/Neighborhood")
     
     # Account status
     is_verified = models.BooleanField(default=False)
@@ -52,10 +49,7 @@ class CustomUser(AbstractUser):
         """Return formatted full address."""
         address_parts = [
             self.street_address,
-            self.city,
-            self.state,
-            self.postal_code,
-            self.country
+            self.location
         ]
         return ', '.join([part for part in address_parts if part])
 

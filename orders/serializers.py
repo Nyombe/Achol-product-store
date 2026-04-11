@@ -71,36 +71,33 @@ class OrderSerializer(serializers.ModelSerializer):
     
     items = OrderItemSerializer(many=True, read_only=True)
     user_email = serializers.CharField(source='user.email', read_only=True, allow_null=True)
-    shipping_address_full = serializers.SerializerMethodField()
+    delivery_address_full = serializers.SerializerMethodField()
 
     class Meta:
         model = Order
         fields = (
             'id', 'order_number', 'user', 'user_email', 'status', 'payment_status',
             'subtotal', 'tax_amount', 'shipping_cost', 'discount_amount', 'total_amount',
-            'shipping_address_full', 'shipping_phone', 'tracking_number', 'items',
+            'delivery_address_full', 'delivery_phone', 'tracking_number', 'items',
             'notes', 'delivered_at', 'cancelled_at', 'created_at', 'updated_at'
         )
         read_only_fields = (
             'id', 'order_number', 'user', 'delivered_at', 'cancelled_at', 'created_at', 'updated_at'
         )
 
-    def get_shipping_address_full(self, obj):
-        return obj.get_shipping_address()
+    def get_delivery_address_full(self, obj):
+        return obj.get_delivery_address()
 
 
 class CheckoutSerializer(serializers.Serializer):
     """Serializer for checkout process."""
     
-    shipping_address = serializers.CharField(max_length=500)
-    shipping_city = serializers.CharField(max_length=100)
-    shipping_state = serializers.CharField(max_length=100)
-    shipping_postal_code = serializers.CharField(max_length=20)
-    shipping_country = serializers.CharField(max_length=100)
-    shipping_phone = serializers.CharField(max_length=20)
+    delivery_address = serializers.CharField(max_length=500)
+    delivery_location = serializers.CharField(max_length=100)
+    delivery_phone = serializers.CharField(max_length=20)
     notes = serializers.CharField(required=False, allow_blank=True)
     
-    def validate_shipping_phone(self, value):
+    def validate_delivery_phone(self, value):
         import re
         if not re.match(r'^\+?1?\d{9,15}$', value.replace(' ', '').replace('-', '')):
             raise serializers.ValidationError('Invalid phone number.')

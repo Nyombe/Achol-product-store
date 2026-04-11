@@ -148,6 +148,46 @@ class Product(BaseModel):
             self.num_ratings += 1
             self.save()
 
+    def get_recommendations(self, limit=6):
+        """
+        Get recommended products based on collaborative filtering (co-purchases).
+        Falls back to category-based recommendations if not enough purchase data.
+        """
+        from orders.models import OrderItem
+        from django.db.models import Count
+        
+        # Find order IDs that contain this product
+        order_ids = OrderItem.objects.filter(product=self).values_list('order_id', flat=True)
+        
+        # Find other products in those same orders, ordered by frequency
+        recommended = Product.objects.filter(
+            order_items__order_id__in=order_ids,
+            is_active=True
+        ).exclude(
+            id=self.id
+        ).annotate(
+            purchase_count=Count('id')
+        ).order_by('-purchase_count')[:limit]
+        
+        # Convert to list to work with it safely and efficiently
+        recommended_list = list(recommended)
+        
+        # If we don't have enough recommendations, pad with products from the same category
+        if len(recommended_list) < limit:
+            needed = limit - len(recommended_list)
+            recommended_ids = [p.id for p in recommended_list] + [self.id]
+            
+            fallback = Product.objects.filter(
+                category=self.category,
+                is_active=True
+            ).exclude(
+                id__in=recommended_ids
+            ).order_by('-views', '-rating')[:needed]
+            
+            recommended_list.extend(list(fallback))
+            
+        return recommended_list
+
 
 class ProductImage(BaseModel):
     """Product image model for multiple images per product."""
