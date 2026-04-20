@@ -3,24 +3,20 @@ Production settings for ecommerce project.
 """
 
 from .base import *
-
+import dj_database_url
 DEBUG = False
 
 # This must be set properly in production
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='example.com,www.example.com', cast=Csv())
 
-# Database Configuration - PostgreSQL for Production
+# Database Configuration - Serverless PostgreSQL (Neon) for Production
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='ecommerce'),
-        'USER': config('DB_USER', default='postgres'),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default=5432, cast=int),
-        'CONN_MAX_AGE': 600,
-        'ATOMIC_REQUESTS': True,
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL', default=''),
+        conn_max_age=600,
+        conn_health_checks=True,
+        ssl_require=True,
+    )
 }
 
 # HTTPS & Security
@@ -34,12 +30,19 @@ SECURE_HSTS_PRELOAD = True
 # Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# Static and Media files - CDN ready
+# Static and Media files - Cloudinary & WhiteNoise integration
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
+}
 
 # Cache with Redis
 CACHES = {

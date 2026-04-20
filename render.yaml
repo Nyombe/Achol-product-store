@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: achol-fashion-store
+    env: python
+    buildCommand: "bash ./build.sh"
+    startCommand: "gunicorn config.wsgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: "*" # Or set specifically to .onrender.com or custom domain
+      - key: DATABASE_URL
+        sync: false # Requires Neon Postgres string
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false # Requires Cloudinary keys
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      - key: DEBUG
+        value: "False"

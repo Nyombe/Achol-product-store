@@ -7500,3 +7500,18 @@ INFO 2026-04-15 23:23:37,094 log 19300 18344 "GET /static/vendor/adminlte/js/adm
 INFO 2026-04-15 23:23:37,186 log 19300 17868 "GET /static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2 HTTP/1.1" 304 0
 INFO 2026-04-15 23:23:37,186 log 19300 18344 "GET /static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2 HTTP/1.1" 304 0
 INFO 2026-04-20 11:52:49,571 autoreload 3024 3556 Watching for file changes with StatReloader
+INFO 2026-04-20 11:53:54,348 log 3024 14672 "GET / HTTP/1.1" 200 31622
+INFO 2026-04-20 11:53:54,575 log 3024 8768 "GET /media/products/sh2.jpg HTTP/1.1" 200 5084
+INFO 2026-04-20 11:53:54,581 log 3024 14672 "GET /media/products/men.jpg HTTP/1.1" 200 7923
+INFO 2026-04-20 11:53:54,583 log 3024 8768 "GET /media/products/sh.jpg HTTP/1.1" 200 5107
+WARNING 2026-04-20 11:53:59,518 log 3024 8768 Not Found: /favicon.ico
+WARNING 2026-04-20 11:53:59,519 log 3024 8768 "GET /favicon.ico HTTP/1.1" 404 4994
+INFO 2026-04-20 11:58:21,791 log 3024 6948 "GET / HTTP/1.1" 200 35296
+INFO 2026-04-20 11:58:23,327 log 3024 6948 "GET /products/ HTTP/1.1" 200 27738
+INFO 2026-04-20 11:58:24,942 log 3024 6948 "GET /about/ HTTP/1.1" 200 20823
+INFO 2026-04-20 11:58:26,450 log 3024 6948 "GET /contact/ HTTP/1.1" 200 23530
+INFO 2026-04-20 12:08:54,861 log 3024 15908 "GET /auth/login/ HTTP/1.1" 200 21701
+INFO 2026-04-20 12:09:04,110 log 3024 15908 "GET /contact/ HTTP/1.1" 200 23530
+INFO 2026-04-20 12:09:56,424 log 3024 15908 "GET / HTTP/1.1" 200 35296
+INFO 2026-04-20 12:10:20,020 log 3024 15908 "GET /products/category/2443/ HTTP/1.1" 200 21853
+INFO 2026-04-20 12:19:47,471 autoreload 3024 3556 D:\Achol\config\settings\base.py changed, reloading.
