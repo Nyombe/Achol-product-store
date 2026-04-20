@@ -4,29 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}E-Commerce Store{% endblock %}</title>
+    <title>{% block title %}Achol Fashion Store{% endblock %}</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .glass { @apply bg-white/80 backdrop-blur-xl border-white/20; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+    </style>
+    
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-50 flex flex-col min-h-screen">
+<body class="bg-gray-50 flex flex-col min-h-screen selection:bg-indigo-100 selection:text-indigo-900 overflow-x-hidden">
     <!-- Navigation -->
-    <nav class="bg-white shadow sticky top-0 z-50">
+    <nav class="bg-white/80 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50 shadow-[0_2px_15px_rgb(0,0,0,0.03)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <a href="{% url 'core:home' %}" class="text-2xl font-extrabold text-blue-600 tracking-tight flex items-center">
-                        🛍️ <span class="ml-2">Store</span>
+                        🛍️ <span class="ml-2">Achol Fashion Store</span>
                     </a>
                     
                     <!-- Desktop Menu -->
-                    <div class="hidden md:flex ml-10 space-x-6">
+                    <div class="hidden md:flex ml-10 space-x-6 items-center">
                         <a href="{% url 'core:home' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">Home</a>
                         <a href="{% url 'products:product_list' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">Products</a>
                         <a href="{% url 'core:about' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">About</a>
                         <a href="{% url 'core:contact' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">Contact</a>
+                        
+                        <!-- Search Bar -->
+                        <form action="{% url 'products:search' %}" method="GET" class="relative pl-4 flex items-center">
+                            <select name="category" class="h-full border border-gray-200 border-r-0 py-2 pl-3 pr-6 text-sm bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-full appearance-none z-10 font-medium" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right .5rem top 50%; background-size: .65rem auto;">
+                                <option value="">All Categories</option>
+                                {% for cat in global_categories %}
+                                <option value="{{ cat.slug }}">{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <div class="relative flex-1">
+                                <input type="text" name="q" placeholder="Search..." required class="pl-9 pr-4 py-2 border border-gray-200 border-l-0 rounded-r-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 lg:w-48 bg-white text-gray-800">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 
@@ -72,9 +100,25 @@
                 </div>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 bg-gray-50">
+            <!-- Mobile Search -->
+            <div class="p-4 border-b border-gray-200">
+                <form action="{% url 'products:search' %}" method="GET" class="relative flex">
+                    <select name="category" class="border border-gray-300 border-r-0 py-2 pl-3 pr-6 text-sm bg-gray-50 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-l-lg appearance-none font-medium w-32" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right .5rem top 50%; background-size: .65rem auto;">
+                        <option value="">All Categories</option>
+                        {% for cat in global_categories %}
+                        <option value="{{ cat.slug }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="relative flex-1">
+                        <input type="text" name="q" placeholder="Search..." required class="w-full pl-9 pr-4 py-2 border border-gray-300 border-l-0 rounded-r-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="{% url 'core:home' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-white transition duration-150">Home</a>
                 <a href="{% url 'products:product_list' %}" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-white transition duration-150">Products</a>
@@ -117,7 +161,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div>
-                    <h3 class="text-xl font-bold mb-5 flex items-center">🛍️ <span class="ml-2 tracking-tight">Super Store</span></h3>
+                    <h3 class="text-xl font-bold mb-5 flex items-center">🛍️ <span class="ml-2 tracking-tight">Achol Fashion Store</span></h3>
                     <p class="text-gray-400 text-sm leading-relaxed">Your trusted online marketplace for quality products. Delivering excellence directly to your door.</p>
                 </div>
                 <div>
@@ -153,25 +197,47 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-500">
-                <p>&copy; 2026 E-Commerce Store. All rights reserved.</p>
+                <p>&copy; 2026 Achol Fashion Store. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Mobile Menu Interactivity Script -->
+    <!-- Global Scripts: Intersection Observer & Mobile Menu -->
     <script>
-        const btn = document.getElementById('mobile-menu-button');
-        const menu = document.getElementById('mobile-menu');
-        const iconPath = document.getElementById('menu-icon-path');
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll Reveal Logic
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            if (menu.classList.contains('hidden')) {
-                // Hamburger icon
-                iconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-            } else {
-                // Close (X) icon
-                iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Mobile Menu Toggle Logic
+            const btn = document.getElementById('mobile-menu-button');
+            const menu = document.getElementById('mobile-menu');
+            const iconPath = document.getElementById('menu-icon-path');
+
+            if (btn && menu) {
+                btn.addEventListener('click', () => {
+                    const isHidden = menu.classList.contains('hidden');
+                    menu.classList.toggle('hidden');
+                    if (isHidden) {
+                        // Switch to Close (X) icon
+                        iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                    } else {
+                        // Switch to Hamburger icon
+                        iconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                    }
+                });
             }
         });
     </script>

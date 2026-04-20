@@ -1,5 +1,7 @@
-from django.shortcuts import get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, View
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.db.models import Q
 from rest_framework import generics, filters, status
 from rest_framework.response import Response
@@ -11,6 +13,7 @@ from .serializers import (
     CategorySerializer, ProductListSerializer, ProductDetailSerializer,
     ProductImageSerializer, PriceHistorySerializer, ProductReviewSerializer
 )
+from .forms import ProductReviewForm
 
 
 # ============================================================================
@@ -183,20 +186,52 @@ class ProductSearchView(ListView):
     """Web view for product search."""
     
     model = Product
-    template_name = 'products/search_results.html'
+    template_name = 'products/product_list.html'
     context_object_name = 'products'
     paginate_by = 20
 
     def get_queryset(self):
         query = self.request.GET.get('q', '')
-        return Product.objects.filter(
-            Q(name__icontains=query) |
-            Q(description__icontains=query) |
-            Q(sku__icontains=query),
-            is_active=True
-        ).select_related('category').prefetch_related('images')
+        category_slug = self.request.GET.get('category', '')
+        
+        queryset = Product.objects.filter(is_active=True)
+        
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query) |
+                Q(description__icontains=query) |
+                Q(sku__icontains=query)
+            ).distinct()
+            
+        if category_slug:
+            queryset = queryset.filter(category__slug=category_slug)
+            
+        return queryset.select_related('category').prefetch_related('images')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['search_query'] = self.request.GET.get('q', '')
+        context['selected_category_slug'] = self.request.GET.get('category', '')
         return context
+
+class AddReviewView(LoginRequiredMixin, View):
+    """Web view for an authenticated user to submit a product review"""
+    def post(self, request, slug, *args, **kwargs):
+        product = get_object_or_404(Product, slug=slug)
+        
+        # Check if user already reviewed
+        if product.reviews.filter(user=request.user).exists():
+            messages.error(request, "You have already submitted a review for this product.")
+            return redirect('products:product_detail', slug=slug)
+            
+        form = ProductReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+            messages.success(request, "Your review has been submitted successfully and is pending approval.")
+        else:
+            messages.error(request, "There was an error with your review. Please try again.")
+            
+        return redirect('products:product_detail', slug=slug)

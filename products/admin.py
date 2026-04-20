@@ -52,10 +52,10 @@ class ProductAdmin(admin.ModelAdmin):
 
     def stock_display(self, obj):
         if obj.stock <= 0:
-            return format_html('<span style="color: red;">Out of Stock</span>')
+            return mark_safe('<span style="color: red;">Out of Stock</span>')
         elif obj.stock < obj.low_stock_threshold:
             return format_html('<span style="color: orange;">Low ({} left)</span>', obj.stock)
-        return format_html('<span style="color: green;">In Stock</span>')
+        return mark_safe('<span style="color: green;">In Stock</span>')
     stock_display.short_description = 'Stock'
 
 
