@@ -33,7 +33,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static and Media files - Cloudinary & WhiteNoise integration
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'core.storage.ResilientWhiteNoiseStorage'
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 MEDIA_URL = '/media/'
