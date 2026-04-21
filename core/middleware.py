@@ -16,9 +16,14 @@ class AdminAccessMiddleware:
         admin_path = '/management/'
         
         if request.path.startswith(admin_path):
-            # Only allow authenticated staff/superusers
+            # Allow access to the login page so admins can actually sign in
+            # from new devices.
+            if request.path.startswith(f"{admin_path}login/"):
+                return self.get_response(request)
+                
+            # Strictly block non-staff from all other management paths
             if not request.user.is_authenticated or not request.user.is_staff:
-                # Return a 404 instead of a redirect to hide the portal
+                # Return a 404 instead of a redirect to hide the portal's existence
                 raise Http404
         
         response = self.get_response(request)
