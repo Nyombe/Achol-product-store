@@ -65,6 +65,9 @@
                             Hello, <strong class="text-indigo-600">{{ user.first_name|default:user.username|default:user.email }}</strong>
                         </span>
                         <a href="{% url 'auth:profile' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">Profile</a>
+                        {% if user.is_staff %}
+                            <a href="/management/" class="text-indigo-600 hover:text-indigo-800 transition duration-150 font-bold bg-indigo-50 px-3 py-1 rounded-full text-xs">Management Portal</a>
+                        {% endif %}
                         <a href="{% url 'auth:logout' %}" class="text-gray-600 hover:text-blue-600 transition duration-150 font-medium">Logout</a>
                     {% else %}
                         <a href="{% url 'auth:login' %}" class="text-gray-600 hover:text-blue-600 font-medium transition duration-150">Login</a>
@@ -130,6 +133,9 @@
                     {% if user.is_authenticated %}
                         <p class="text-sm font-medium text-gray-500">Logged in as <span class="font-bold text-gray-800">{{ user.first_name|default:user.username|default:user.email }}</span></p>
                         <a href="{% url 'auth:profile' %}" class="block w-full text-center px-4 py-2 border border-blue-600 rounded-md shadow-sm text-base font-medium text-blue-600 bg-white hover:bg-blue-50">Profile</a>
+                        {% if user.is_staff %}
+                            <a href="/management/" class="block w-full text-center px-4 py-2 border border-indigo-600 rounded-md shadow-sm text-base font-medium text-white bg-indigo-600">Management Portal</a>
+                        {% endif %}
                         <a href="{% url 'auth:logout' %}" class="block w-full text-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700">Logout</a>
                     {% else %}
                         <a href="{% url 'auth:login' %}" class="block w-full text-center px-4 py-2 border border-blue-600 rounded-md shadow-sm text-base font-medium text-blue-600 bg-white hover:bg-blue-50">Login</a>
