@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.AdminAccessMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -360,11 +361,11 @@ CELERY_TASK_SERIALIZER = 'json'
 # ==============================================================================
 
 JAZZMIN_SETTINGS = {
-    "site_title": "E-Commerce Admin",
-    "site_header": "Store Admin",
-    "site_brand": "Super Store",
-    "welcome_sign": "Welcome to the Admin Portal",
-    "copyright": "Super Store Ltd",
+    "site_title": "Achol Admin",
+    "site_header": "Achol Fashion Store",
+    "site_brand": "ACHOL MANAGEMENT",
+    "welcome_sign": "Welcome to Achol Management Portal",
+    "copyright": "Achol Fashion Store Ltd",
     "search_model": ["users.CustomUser", "products.Product"],
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
@@ -391,15 +392,15 @@ JAZZMIN_UI_TWEAKS = {
     "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
-    "brand_colour": "navbar-indigo",
-    "accent": "accent-indigo",
-    "navbar": "navbar-indigo navbar-dark",
+    "brand_colour": "navbar-dark",
+    "accent": "accent-primary",
+    "navbar": "navbar-dark",
     "no_navbar_border": False,
     "navbar_fixed": True,
     "layout_boxed": False,
     "footer_fixed": False,
     "sidebar_fixed": True,
-    "sidebar": "sidebar-dark-indigo",
+    "sidebar": "sidebar-dark-primary",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,
