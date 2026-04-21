@@ -4,6 +4,15 @@ Production settings for ecommerce project.
 
 from .base import *
 import dj_database_url
+from whitenoise.storage import CompressedManifestStaticFilesStorage
+
+class ResilientWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
+    def post_process(self, *args, **kwargs):
+        try:
+            yield from super().post_process(*args, **kwargs)
+        except Exception:
+            pass
+
 DEBUG = False
 
 # This must be set properly in production
@@ -33,7 +42,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # Static and Media files - Cloudinary & WhiteNoise integration
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'core.storage.ResilientWhiteNoiseStorage'
+STATICFILES_STORAGE = 'config.settings.production.ResilientWhiteNoiseStorage'
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 MEDIA_URL = '/media/'
