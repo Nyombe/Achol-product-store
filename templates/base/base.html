@@ -4,15 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %}Achol Fashion Store{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Achol Fashion Store: Trendy clothing, stylish footwear, and everyday essentials. Discover quality dresses, sneakers, and accessories with fast, secure delivery.{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}fashion, clothing, footwear, accessories, online shopping, sneakers, dresses, Achol Fashion{% endblock %}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{% block og_title %}Achol Fashion Store | Premium E-Commerce{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Discover style, quality, and convenience with Achol Fashion Store, your destination for trendy clothing, stylish footwear, and everyday essentials.{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{% block twitter_title %}Achol Fashion Store | Premium E-Commerce{% endblock %}">
+    <meta property="twitter:description" content="{% block twitter_description %}Discover style, quality, and convenience with Achol Fashion Store, your destination for trendy clothing, stylish footwear, and everyday essentials.{% endblock %}">
+    <meta property="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}">
+
+    <title>{% block title %}Achol Fashion Store | Your Premium Style Destination{% endblock %}</title>
     
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Compiled Tailwind CSS -->
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
     
     <style>
         body { font-family: 'Outfit', sans-serif; }

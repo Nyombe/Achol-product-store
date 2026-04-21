@@ -2,7 +2,13 @@
 # exit on error
 set -o errexit
 
-echo "Installing dependencies..."
+echo "Installing Node dependencies..."
+npm install
+
+echo "Building Tailwind CSS..."
+npm run build
+
+echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
 echo "Collecting static files..."

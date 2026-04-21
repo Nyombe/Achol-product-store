@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .glass {
+        @apply bg-white/80 backdrop-blur-xl border-white/20;
+    }
+    .reveal {
+        @apply opacity-0 translate-y-5 transition-all duration-700 ease-out;
+    }
+    .reveal.active {
+        @apply opacity-100 translate-y-0;
+    }
+}

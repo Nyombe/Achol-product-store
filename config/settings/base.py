@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
+    'django.contrib.sitemaps',
     'cloudinary',
     
     # Third-party apps
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'orders.apps.OrdersConfig',
     'payments.apps.PaymentsConfig',
+    'analytics.apps.AnalyticsConfig',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'core.middleware.AdminAccessMiddleware',
+    'core.middleware.SecurityHeadersMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -224,9 +227,9 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_SECURITY_POLICY = {
     'default-src': ("'self'",),
     'script-src': ("'self'", "'unsafe-inline'"),
-    'style-src': ("'self'", "'unsafe-inline'"),
+    'style-src': ("'self'", "'unsafe-inline'", "https://fonts.googleapis.com"),
     'img-src': ("'self'", 'data:', 'https:'),
-    'font-src': ("'self'",),
+    'font-src': ("'self'", "https://fonts.gstatic.com"),
 }
 
 # CSRF
@@ -367,8 +370,10 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to Achol Management Portal",
     "copyright": "Achol Fashion Store Ltd",
     "search_model": ["users.CustomUser", "products.Product"],
+    "dashboard_view": "analytics.views.AnalyticsDashboardView",
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Analytics", "url": "/management/analytics/", "permissions": ["auth.view_user"]},
         {"name": "View Site", "url": "/", "new_window": True},
     ],
     "show_sidebar": True,
@@ -382,6 +387,7 @@ JAZZMIN_SETTINGS = {
         "products.Category": "fas fa-tags",
         "orders.Order": "fas fa-shopping-cart",
         "payments.Payment": "fas fa-credit-card",
+        "analytics": "fas fa-chart-line",
     },
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",

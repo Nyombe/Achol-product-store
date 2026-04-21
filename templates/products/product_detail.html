@@ -1,7 +1,26 @@
 {% extends 'base/base.html' %}
 {% load static %}
 
-{% block title %}{{ object.name }} - Achol Fashion Store{% endblock %}
+{% block title %}{{ object.name }} | Achol Fashion Store{% endblock %}
+
+{% block meta_description %}{{ object.meta_description|default:object.description|truncatechars:160 }}{% endblock %}
+{% block meta_keywords %}{{ object.meta_keywords|default:object.category.name }}{% endblock %}
+
+{% block og_title %}{{ object.name }} | Achol Fashion Store{% endblock %}
+{% block og_description %}{{ object.description|truncatechars:200 }}{% endblock %}
+{% block og_image %}
+    {% with image=object.images.first %}
+        {% if image %}{{ image.image.url }}{% endif %}
+    {% endwith %}
+{% endblock %}
+
+{% block twitter_title %}{{ object.name }} | Achol Fashion Store{% endblock %}
+{% block twitter_description %}{{ object.description|truncatechars:200 }}{% endblock %}
+{% block twitter_image %}
+    {% with image=object.images.first %}
+        {% if image %}{{ image.image.url }}{% endif %}
+    {% endwith %}
+{% endblock %}
 
 {% block content %}
 <div class="max-w-7xl mx-auto py-8 lg:py-12">
