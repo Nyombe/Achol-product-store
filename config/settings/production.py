@@ -8,10 +8,15 @@ from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 class ResilientWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
     def post_process(self, *args, **kwargs):
-        try:
-            yield from super().post_process(*args, **kwargs)
-        except Exception:
-            pass
+        # Intercept the generator from the base class
+        files = super().post_process(*args, **kwargs)
+        for name, hashed_name, processed in files:
+            if isinstance(processed, Exception):
+                # If an error occurred (like a missing .map file), 
+                # we tell Django it's okay and to just use the original file.
+                yield name, name, True
+            else:
+                yield name, hashed_name, processed
 
 DEBUG = False
 
