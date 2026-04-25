@@ -21,7 +21,7 @@ class ResilientWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
 DEBUG = False
 
 # This must be set properly in production
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='example.com,www.example.com', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,achol-fashion-store.onrender.com', cast=Csv())
 
 # Database Configuration - Serverless PostgreSQL (Neon) for Production
 DATABASES = {

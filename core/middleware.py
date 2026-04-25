@@ -25,6 +25,7 @@ class AdminAccessMiddleware:
                 # Return a 404 instead of a redirect to hide the portal's existence
                 raise Http404
         
+        return self.get_response(request)
 
 class SecurityHeadersMiddleware:
     """
