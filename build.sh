@@ -2,6 +2,8 @@
 # exit on error
 set -o errexit
 
+mkdir -p logs
+
 echo "Installing Node dependencies..."
 npm install
 

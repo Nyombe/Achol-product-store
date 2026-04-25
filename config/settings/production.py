@@ -34,6 +34,7 @@ DATABASES = {
 }
 
 # HTTPS & Security
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
@@ -59,25 +60,34 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': config('CLOUDINARY_API_SECRET', default=''),
 }
 
-# Cache with Redis
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
-        'LOCATION': config('REDIS_URL', default='redis://127.0.0.1:6379/1'),
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'PARSER_KWARGS': {'encoding': 'utf8'},
-        },
-        'KEY_PREFIX': 'ecommerce',
-        'TIMEOUT': 300,  # 5 minutes
+# Cache with Redis (Fallback to LocMem if REDIS_URL is missing)
+REDIS_URL = config('REDIS_URL', default=None)
+if REDIS_URL:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+            'LOCATION': REDIS_URL,
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'PARSER_KWARGS': {'encoding': 'utf8'},
+            },
+            'KEY_PREFIX': 'ecommerce',
+            'TIMEOUT': 300,
+        }
     }
-}
+else:
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'unique-snowflake',
+        }
+    }
 
 # Celery with Redis
 CELERY_BROKER_URL = config('REDIS_URL', default='redis://127.0.0.1:6379/0')
 CELERY_RESULT_BACKEND = config('REDIS_URL', default='redis://127.0.0.1:6379/0')
 
-# Logging in production
+# Logging in production - Console logging is best for Render
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -88,31 +98,20 @@ LOGGING = {
         },
     },
     'handlers': {
-        'file': {
+        'console': {
             'level': 'INFO',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'django.log'),
-            'maxBytes': 1024 * 1024 * 15,
-            'backupCount': 10,
-            'formatter': 'verbose',
-        },
-        'security_file': {
-            'level': 'WARNING',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs', 'security.log'),
-            'maxBytes': 1024 * 1024 * 15,
-            'backupCount': 10,
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
         'django.security': {
-            'handlers': ['security_file'],
+            'handlers': ['console'],
             'level': 'WARNING',
             'propagate': False,
         },
