@@ -370,7 +370,6 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to Achol Management Portal",
     "copyright": "Achol Fashion Store Ltd",
     "search_model": ["users.CustomUser", "products.Product"],
-    "dashboard_view": "analytics.views.AnalyticsDashboardView",
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Analytics", "url": "/management/analytics/", "permissions": ["auth.view_user"]},
