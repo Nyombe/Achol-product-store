@@ -18,7 +18,7 @@ class ResilientWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
             else:
                 yield name, hashed_name, processed
 
-DEBUG = False
+DEBUG = True
 
 # This must be set properly in production
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,achol-fashion-store.onrender.com', cast=Csv())
