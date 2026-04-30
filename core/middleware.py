@@ -24,8 +24,13 @@ class AdminAccessMiddleware:
             if 'login' in request.path:
                 return self.get_response(request)
                 
-            # 3. Block everyone else with a 404 to hide the portal
-            raise Http404
+            # 3. If not authenticated, redirect to login
+            if not request.user.is_authenticated:
+                return redirect(f"{admin_path}login/")
+                
+            # 4. If authenticated but not staff, block with 404
+            if not request.user.is_staff:
+                raise Http404
         
         return self.get_response(request)
 
