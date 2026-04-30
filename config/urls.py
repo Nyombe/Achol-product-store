@@ -9,6 +9,9 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 from products.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 
+from django_otp.admin import OTPAdminSite
+admin.site.__class__ = OTPAdminSite
+
 sitemaps = {
     'products': ProductSitemap,
     'categories': CategorySitemap,
@@ -16,6 +19,7 @@ sitemaps = {
 }
 
 urlpatterns = [
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('management/', admin.site.urls),
     path('api/auth/', include('users.urls.api')),
     path('api/products/', include('products.urls.api')),

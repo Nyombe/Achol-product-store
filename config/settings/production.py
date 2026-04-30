@@ -6,19 +6,7 @@ from .base import *
 import dj_database_url
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
-class ResilientWhiteNoiseStorage(CompressedManifestStaticFilesStorage):
-    def post_process(self, *args, **kwargs):
-        # Intercept the generator from the base class
-        files = super().post_process(*args, **kwargs)
-        for name, hashed_name, processed in files:
-            if isinstance(processed, Exception):
-                # If an error occurred (like a missing .map file), 
-                # we tell Django it's okay and to just use the original file.
-                yield name, name, True
-            else:
-                yield name, hashed_name, processed
-
-DEBUG = True
+DEBUG = False
 
 # This must be set properly in production
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,achol-fashion-store.onrender.com', cast=Csv())
@@ -42,13 +30,10 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
-# Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# Static and Media files - Cloudinary & WhiteNoise integration
+# Static and Media files
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'config.settings.production.ResilientWhiteNoiseStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 
 MEDIA_URL = '/media/'
@@ -75,45 +60,8 @@ if REDIS_URL:
             'TIMEOUT': 300,
         }
     }
-else:
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-        }
-    }
 
-# Celery with Redis
-CELERY_BROKER_URL = config('REDIS_URL', default='redis://127.0.0.1:6379/0')
-CELERY_RESULT_BACKEND = config('REDIS_URL', default='redis://127.0.0.1:6379/0')
-
-# Logging in production - Console logging is best for Render
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-            'style': '{',
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-        'django.security': {
-            'handlers': ['console'],
-            'level': 'WARNING',
-            'propagate': False,
-        },
-    },
-}
+# CORS
+CORS_ALLOWED_ORIGINS = [
+    "https://achol-fashion-store.onrender.com",
+]
