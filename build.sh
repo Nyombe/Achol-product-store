@@ -19,5 +19,5 @@ python manage.py collectstatic --no-input
 echo "Running database migrations..."
 python manage.py migrate
 
-echo "Initializing admin user..."
-python manage.py initadmin
+# echo "Initializing admin user..."
+# python manage.py initadmin
