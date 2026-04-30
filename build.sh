@@ -4,11 +4,11 @@ set -o errexit
 
 mkdir -p logs
 
-echo "Installing Node dependencies..."
-npm install
+# echo "Installing Node dependencies..."
+# npm install
 
-echo "Building Tailwind CSS..."
-npm run build
+# echo "Building Tailwind CSS..."
+# npm run build
 
 echo "Installing Python dependencies..."
 pip install -r requirements.txt
