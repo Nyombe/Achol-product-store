@@ -20,6 +20,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('management/analytics/', include('analytics.urls')),
     path('management/', admin.site.urls),
     path('api/auth/', include('users.urls.api')),
     path('api/products/', include('products.urls.api')),
@@ -34,7 +35,6 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
     
-    path('management/analytics/', include('analytics.urls')),
     path('', include('core.urls')),
 ]
 
