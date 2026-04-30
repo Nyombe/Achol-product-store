@@ -270,7 +270,7 @@ JAZZMIN_SETTINGS = {
     "search_model": ["users.CustomUser", "products.Product"],
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"name": "Analytics", "url": "/dashboard/analytics/", "permissions": ["auth.view_user"]},
+        {"name": "Analytics", "url": "/management/analytics/", "permissions": ["auth.view_user"]},
         {"name": "View Site", "url": "/", "new_window": True},
     ],
     "show_sidebar": True,

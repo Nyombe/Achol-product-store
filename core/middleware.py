@@ -16,14 +16,16 @@ class AdminAccessMiddleware:
         admin_path = '/management/'
         
         if request.path.startswith(admin_path):
-            # 1. Always allow the login page and the root path (so it can redirect to login)
-            if request.path == admin_path or 'login' in request.path:
+            # 1. Always allow authenticated staff members
+            if request.user.is_authenticated and request.user.is_staff:
                 return self.get_response(request)
                 
-            # 2. Strictly block non-staff from all other management paths (Dashboard, Products, etc.)
-            if not request.user.is_authenticated or not request.user.is_staff:
-                # Return a 404 instead of a redirect to hide the portal's existence
-                raise Http404
+            # 2. Allow the login page for everyone (so they can become staff)
+            if 'login' in request.path:
+                return self.get_response(request)
+                
+            # 3. Block everyone else with a 404 to hide the portal
+            raise Http404
         
         return self.get_response(request)
 
