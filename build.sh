@@ -2,22 +2,11 @@
 # exit on error
 set -o errexit
 
-mkdir -p logs
-
-# echo "Installing Node dependencies..."
-# npm install
-
-# echo "Building Tailwind CSS..."
-# npm run build
-
 echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
 echo "Collecting static files..."
-python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input --clear
 
 echo "Running database migrations..."
 python manage.py migrate
-
-# echo "Initializing admin user..."
-# python manage.py initadmin
