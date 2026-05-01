@@ -38,13 +38,25 @@
                         {% with images=product.images.all %}
                             {% if images %}
                                 <!-- Primary Image -->
-                                <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-0">
+                                {% if images.0.image %}
+                                    <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-0">
+                                {% elif images.0.image_url %}
+                                    <img src="{{ images.0.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-0">
+                                {% endif %}
                                 
                                 <!-- Hover Image (Secondary) -->
                                 {% if images|length > 1 %}
-                                    <img src="{{ images.1.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                                    {% if images.1.image %}
+                                        <img src="{{ images.1.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                                    {% elif images.1.image_url %}
+                                        <img src="{{ images.1.image_url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100">
+                                    {% endif %}
                                 {% else %}
-                                    <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100 brightness-90">
+                                    {% if images.0.image %}
+                                        <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100 brightness-90">
+                                    {% elif images.0.image_url %}
+                                        <img src="{{ images.0.image_url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100 brightness-90">
+                                    {% endif %}
                                 {% endif %}
                             {% else %}
                                 <div class="w-full h-full flex items-center justify-center text-gray-300">

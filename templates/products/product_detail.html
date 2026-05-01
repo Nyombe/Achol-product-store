@@ -56,9 +56,13 @@
                 <div class="absolute -top-24 -left-24 w-64 h-64 rounded-full bg-indigo-300 opacity-20 blur-[80px] pointer-events-none"></div>
                 
                 {% with image=object.images.first %}
-                    {% if image and image.image %}
+                    {% if image %}
                         <div class="relative z-10 p-4 bg-white/40 backdrop-blur-sm rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] ring-1 ring-white/60">
-                            <img src="{{ image.image.url }}" class="w-full max-h-[500px] object-contain rounded-2xl group-hover:scale-[1.02] transition-transform duration-700" alt="{{ object.name }}"/>
+                            {% if image.image %}
+                                <img src="{{ image.image.url }}" class="w-full max-h-[500px] object-contain rounded-2xl group-hover:scale-[1.02] transition-transform duration-700" alt="{{ object.name }}"/>
+                            {% elif image.image_url %}
+                                <img src="{{ image.image_url }}" class="w-full max-h-[500px] object-contain rounded-2xl group-hover:scale-[1.02] transition-transform duration-700" alt="{{ object.name }}"/>
+                            {% endif %}
                         </div>
                     {% else %}
                         <div class="relative z-10 text-gray-400 flex flex-col items-center bg-white/50 backdrop-blur-sm p-12 rounded-3xl shadow-sm ring-1 ring-white/60">

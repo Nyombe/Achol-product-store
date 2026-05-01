@@ -22,6 +22,7 @@
     <meta property="twitter:description" content="{% block twitter_description %}Discover style, quality, and convenience with Achol Fashion Store, your destination for trendy clothing, stylish footwear, and everyday essentials.{% endblock %}">
     <meta property="twitter:image" content="{% block twitter_image %}{{ request.scheme }}://{{ request.get_host }}{% static 'img/og-image.jpg' %}{% endblock %}">
 
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
     <title>{% block title %}Achol Fashion Store | Your Premium Style Destination{% endblock %}</title>
     
     <!-- Google Fonts: Outfit -->
@@ -34,8 +35,17 @@
     
     <style>
         body { font-family: 'Outfit', sans-serif; }
-        .glass { @apply bg-white/80 backdrop-blur-xl border-white/20; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .glass { 
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); 
+        }
         .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
     

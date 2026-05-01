@@ -9,6 +9,12 @@ DEBUG = False
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='.onrender.com,achol-fashion-store.onrender.com', cast=Csv())
 
+# Add CSRF trusted origins for Render
+CSRF_TRUSTED_ORIGINS = [
+    'https://achol-fashion-store.onrender.com',
+    'https://*.onrender.com',
+]
+
 DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL', default=''),
@@ -29,6 +35,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Use the non-manifest storage to avoid crashes on missing file references
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+WHITENOISE_MANIFEST_STRICT = False
 
 # Media files - Cloudinary
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
