@@ -26,7 +26,7 @@ echo "Cleaning previous static files..."
 rm -rf ./staticfiles
 
 echo "Collecting static files..."
-python manage.py collectstatic --no-input --clear
+python manage.py collectstatic --no-input --clear --upload-unhashed-files
 
 echo "Verifying static files..."
 ls -R staticfiles/css || echo "staticfiles/css directory not found"
