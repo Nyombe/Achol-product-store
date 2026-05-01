@@ -22,8 +22,11 @@ else
     # but the error message will be in the logs.
 fi
 
+echo "Cleaning previous static files..."
+rm -rf ./staticfiles
+
 echo "Collecting static files..."
-python manage.py collectstatic --no-input
+python manage.py collectstatic --no-input --clear
 
 echo "Verifying static files..."
 ls -R staticfiles/css || echo "staticfiles/css directory not found"
