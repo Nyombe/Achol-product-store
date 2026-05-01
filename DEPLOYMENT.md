@@ -197,6 +197,26 @@ sudo systemctl restart nginx
 ```bash
 # Install Certbot
 sudo apt-get install -y certbot python3-certbot-nginx
+```
+
+## Render deployment notes
+
+If you deploy on Render, use the repository build pipeline and keep the generated CSS out of version control.
+
+- Render uses `render.yaml` and `build.sh`.
+- `build.sh` must compile Tailwind and collect static files with Cloudinary storage enabled.
+- The current deploy flow uses:
+  - `npm install --include=dev`
+  - `npm run build`
+  - `python manage.py collectstatic --no-input --clear --upload-unhashed-files`
+- `ALLOWED_HOSTS` should be set to the Render service domain, such as `achol-fashion-store.onrender.com`, not `*`.
+- Make sure the following Render env vars are configured:
+  - `SECRET_KEY`
+  - `DATABASE_URL`
+  - `CLOUDINARY_CLOUD_NAME`
+  - `CLOUDINARY_API_KEY`
+  - `CLOUDINARY_API_SECRET`
+  - `DEBUG=False`
 
 # Get certificate
 sudo certbot certonly --nginx -d yourdomain.com -d www.yourdomain.com
