@@ -34,8 +34,6 @@ ls -R staticfiles/css || echo "staticfiles/css directory not found"
 echo "Running database migrations..."
 python manage.py migrate
 
-echo "Setting up admin user..."
-python manage.py shell -c "from django.contrib.auth import get_user_model; User = get_user_model(); admin, _ = User.objects.get_or_create(username='admin', defaults={'email': 'admin@ecommerce.com'}); admin.set_password('admin123'); admin.is_staff = True; admin.is_superuser = True; admin.save()"
 
 echo "Build finished successfully!"
 exit 0
