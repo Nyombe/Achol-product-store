@@ -164,7 +164,7 @@ AXES_ENABLE_ACCESS_FAILURE_LOG = True
 AXES_IP_METADATA_ORDER = ('HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR')
 
 AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesStandaloneBackend',
+    # 'axes.backends.AxesStandaloneBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 

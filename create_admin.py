@@ -18,24 +18,24 @@ try:
     print(f"--- Admin Reset Started (Settings: {settings_module}) ---")
 
     admin_username = 'admin'
-    admin_password = 'AcholAdmin2024!'
+    admin_password = 'AcholLogin2024'
     admin_email = 'admin@achol.com'
 
-    # Handle User
-    user = CustomUser.objects.filter(username=admin_username).first()
-    if user:
-        print(f"Updating existing admin: {admin_username}")
-        user.set_password(admin_password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
-    else:
-        print(f"Creating new admin: {admin_username}")
-        CustomUser.objects.create_superuser(
-            username=admin_username,
-            email=admin_email,
-            password=admin_password
-        )
+    # Ensure we have a clean state for this specific admin
+    print(f"Clearing existing admin state for {admin_username}...")
+    CustomUser.objects.filter(username=admin_username).delete()
+    CustomUser.objects.filter(email=admin_email).delete()
+
+    print(f"Creating fresh admin: {admin_username} / {admin_email}")
+    admin = CustomUser.objects.create_superuser(
+        username=admin_username,
+        email=admin_email,
+        password=admin_password
+    )
+    admin.is_active = True
+    admin.is_staff = True
+    admin.is_superuser = True
+    admin.save()
 
     # Handle OTP Devices - Clear to allow password-only login
     try:
