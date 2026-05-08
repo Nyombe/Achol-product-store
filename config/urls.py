@@ -9,9 +9,8 @@ from django.contrib.sitemaps.views import sitemap
 from django.views.generic import TemplateView
 from products.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 
-# Temporarily disabling OTPAdminSite to allow initial MFA setup
-# from django_otp.admin import OTPAdminSite
-# admin.site.__class__ = OTPAdminSite
+from django_otp.admin import OTPAdminSite
+admin.site.__class__ = OTPAdminSite
 
 sitemaps = {
     'products': ProductSitemap,
