@@ -13,7 +13,7 @@
     {% if object_list %}
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {% for product in object_list %}
-        <div class="reveal group bg-white rounded-[2rem] border border-gray-100/50 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden flex flex-col">
+        <div class="reveal-none md:reveal group bg-white rounded-[2rem] border border-gray-100/50 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden flex flex-col">
             <!-- Image Container with Hover Shift -->
             <div class="relative h-64 overflow-hidden bg-gray-50">
                 <a href="{{ product.get_absolute_url }}" class="block h-full">
