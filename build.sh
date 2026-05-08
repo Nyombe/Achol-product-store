@@ -31,6 +31,9 @@ python manage.py collectstatic --no-input --clear --upload-unhashed-files
 echo "Verifying static files..."
 ls -R staticfiles/css || echo "staticfiles/css directory not found"
 
+echo "Running database migrations..."
+python manage.py migrate
+
 # Temporary: Reset admin credentials for first login
 echo "Resetting admin credentials..."
 python create_admin.py
