@@ -14,7 +14,6 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 try:
     django.setup()
     from users.models import CustomUser
-    from django_otp.plugins.otp_totp.models import TOTPDevice
 
     print(f"--- Admin Reset Started (Settings: {settings_module}) ---")
 
@@ -40,10 +39,11 @@ try:
 
     # Handle OTP Devices - Clear to allow password-only login
     try:
+        from django_otp.plugins.otp_totp.models import TOTPDevice
         deleted_count, _ = TOTPDevice.objects.filter(user__username=admin_username).delete()
         print(f"✓ Cleared {deleted_count} OTP devices for admin.")
-    except Exception as otp_err:
-        print(f"⚠ Note: Could not clear OTP devices (might not exist yet): {otp_err}")
+    except (ImportError, RuntimeError, Exception) as otp_err:
+        print(f"--- Skipping OTP cleanup (App disabled or missing): {otp_err} ---")
 
     print("--- Admin Reset Completed Successfully ---")
 
