@@ -281,20 +281,19 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
             // Mobile Menu Toggle Logic
-            const btn = document.getElementById('mobile-menu-button');
-            const menu = document.getElementById('mobile-menu');
-            const iconPath = document.getElementById('menu-icon-path');
+            const mobileBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIconPath = document.getElementById('menu-icon-path');
 
-            if (btn && menu) {
-                btn.onclick = (e) => {
+            if (mobileBtn && mobileMenu) {
+                mobileBtn.onclick = function(e) {
                     e.preventDefault();
-                    const isHidden = menu.classList.toggle('hidden');
-                    if (!isHidden) {
-                        // Opened
-                        iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+                    console.log("Menu toggled");
+                    const isNowHidden = mobileMenu.classList.toggle('hidden');
+                    if (!isNowHidden) {
+                        mobileIconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
                     } else {
-                        // Closed
-                        iconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+                        mobileIconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
                     }
                 };
             }

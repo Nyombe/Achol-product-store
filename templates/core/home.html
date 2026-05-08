@@ -111,7 +111,7 @@
     <h2 class="text-3xl font-bold mb-8">Best Sellers</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {% for product in featured_products|slice:":4" %}
-            <div class="reveal group bg-white rounded-[2rem] border border-gray-100/50 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden flex flex-col">
+            <div class="group bg-white rounded-[2rem] border border-gray-100/50 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden flex flex-col">
                 <!-- Image Container with Hover Shift -->
                 <div class="relative h-64 overflow-hidden bg-gray-50">
                     <a href="{% url 'products:product_detail' product.slug %}" class="block h-full">
