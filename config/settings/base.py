@@ -30,8 +30,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     # 'axes',
     # 'admin_honeypot',
-    'django_otp',
-    'django_otp.plugins.otp_totp',
+    # 'django_otp',
+    # 'django_otp.plugins.otp_totp',
     
     # Local apps
     'core.apps.CoreConfig',
@@ -52,7 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_otp.middleware.OTPMiddleware',
+    # 'django_otp.middleware.OTPMiddleware',
     # 'axes.middleware.AxesMiddleware',
     # 'core.middleware.AdminAccessMiddleware',
     # 'core.middleware.SecurityHeadersMiddleware',

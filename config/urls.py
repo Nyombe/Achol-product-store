@@ -20,7 +20,7 @@ sitemaps = {
 }
 
 urlpatterns = [
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    # path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('management/analytics/', include('analytics.urls')),
     path('management/', admin.site.urls),
     path('api/auth/', include('users.urls.api')),
