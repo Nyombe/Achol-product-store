@@ -286,17 +286,17 @@
             const iconPath = document.getElementById('menu-icon-path');
 
             if (btn && menu) {
-                btn.addEventListener('click', () => {
-                    const isHidden = menu.classList.contains('hidden');
-                    menu.classList.toggle('hidden');
-                    if (isHidden) {
-                        // Switch to Close (X) icon
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    const isHidden = menu.classList.toggle('hidden');
+                    if (!isHidden) {
+                        // Opened
                         iconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
                     } else {
-                        // Switch to Hamburger icon
+                        // Closed
                         iconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
                     }
-                });
+                };
             }
         });
     </script>
