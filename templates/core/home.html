@@ -107,76 +107,47 @@
 
 <!-- Best Sellers Section -->
 {% if featured_products %}
-<div class="mb-12">
-    <h2 class="text-3xl font-bold mb-8">Best Sellers</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {% for product in featured_products|slice:":4" %}
-            <div class="group bg-white rounded-[2rem] border border-gray-100/50 shadow-sm hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 overflow-hidden flex flex-col">
-                <!-- Image Container with Hover Shift -->
-                <div class="relative h-64 overflow-hidden bg-gray-50">
-                    <a href="{% url 'products:product_detail' product.slug %}" class="block h-full">
+<div class="mb-16">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-black text-gray-900 tracking-tight">Best Sellers</h2>
+        <a href="{% url 'products:product_list' %}" class="text-sm font-bold text-indigo-600 hover:text-indigo-700 transition flex items-center">
+            View All <svg style="width: 16px; height: 16px;" class="ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8">
+        {% for product in featured_products|slice:":6" %}
+            <div class="group flex flex-col items-center text-center">
+                <a href="{% url 'products:product_detail' product.slug %}" class="relative mb-4 block">
+                    <!-- Circular Image with Premium Border -->
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-white shadow-lg group-hover:shadow-indigo-200/50 transition-all duration-500 transform group-hover:scale-105 ring-1 ring-gray-100">
                         {% with images=product.images.all %}
-                            {% if images %}
-                                <!-- Primary Image -->
-                                {% if images.0.image %}
-                                    <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-0">
-                                {% elif images.0.image_url %}
-                                    <img src="{{ images.0.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110 group-hover:opacity-0">
-                                {% endif %}
-                                
-                                <!-- Hover Image (Secondary) -->
-                                {% if images|length > 1 %}
-                                    {% if images.1.image %}
-                                        <img src="{{ images.1.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100">
-                                    {% elif images.1.image_url %}
-                                        <img src="{{ images.1.image_url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100">
-                                    {% endif %}
-                                {% else %}
-                                    {% if images.0.image %}
-                                        <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100 brightness-90">
-                                    {% elif images.0.image_url %}
-                                        <img src="{{ images.0.image_url }}" alt="{{ product.name }}" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out scale-105 opacity-0 group-hover:opacity-100 group-hover:scale-100 brightness-90">
-                                    {% endif %}
-                                {% endif %}
+                            {% if images and images.0.image %}
+                                <img src="{{ images.0.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                            {% elif images and images.0.image_url %}
+                                <img src="{{ images.0.image_url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
                             {% else %}
-                                <div class="w-full h-full flex items-center justify-center text-gray-300">
-                                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <div class="w-full h-full bg-gray-50 flex items-center justify-center text-gray-300">
+                                    <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                 </div>
                             {% endif %}
                         {% endwith %}
-                    </a>
-                    
-                    <!-- Quick Add Badge -->
-                    <div class="absolute top-4 left-4 z-20">
-                        {% if product.discount_price %}
-                            <span class="bg-red-500 text-white text-[0.65rem] font-black px-2.5 py-1 rounded-lg shadow-lg uppercase tracking-wider">Sale</span>
-                        {% endif %}
                     </div>
-                </div>
-
-                <!-- Product Content -->
-                <div class="p-6 flex flex-col flex-grow">
-                    <div class="mb-1">
-                        <span class="text-[0.6rem] font-bold text-indigo-500 uppercase tracking-widest">{{ product.category.name }}</span>
-                    </div>
-                    <h3 class="font-bold text-gray-900 text-lg mb-2 leading-tight group-hover:text-indigo-600 transition-colors duration-300">
-                        <a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
-                    </h3>
-                    
-                    <div class="mt-auto pt-4 flex items-center justify-between border-t border-gray-50">
-                        <div class="flex flex-col">
-                            {% if product.discount_price %}
-                                <span class="text-sm line-through text-gray-400 font-medium">US${{ product.price }}</span>
-                                <span class="text-xl font-black text-gray-900">US${{ product.discount_price }}</span>
-                            {% else %}
-                                <span class="text-xl font-black text-gray-900">US${{ product.price }}</span>
-                            {% endif %}
-                        </div>
-                        
-                        <a href="{% url 'products:product_detail' product.slug %}" class="w-10 h-10 rounded-xl bg-gray-900 text-white flex items-center justify-center transform transition-all duration-300 hover:scale-110 hover:bg-indigo-600 shadow-lg">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        </a>
-                    </div>
+                    <!-- Sale Tag -->
+                    {% if product.discount_price %}
+                        <div class="absolute -top-1 -right-1 bg-red-500 text-white text-[0.6rem] font-black px-2 py-0.5 rounded-full shadow-md uppercase">Sale</div>
+                    {% endif %}
+                </a>
+                
+                <h3 class="text-sm font-bold text-gray-900 mb-1 truncate w-full px-2 group-hover:text-indigo-600 transition-colors">
+                    <a href="{% url 'products:product_detail' product.slug %}">{{ product.name }}</a>
+                </h3>
+                <div class="flex items-center justify-center space-x-2">
+                    {% if product.discount_price %}
+                        <span class="text-xs text-gray-400 line-through">US${{ product.price }}</span>
+                        <span class="text-sm font-black text-indigo-600">US${{ product.discount_price }}</span>
+                    {% else %}
+                        <span class="text-sm font-black text-gray-900">US${{ product.price }}</span>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
