@@ -1,0 +1,197 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Dashboard - Achol Admin{% endblock %}
+
+{% block extrastyle %}
+<style>
+  body {
+    background: linear-gradient(135deg, #0f172a 0%, #111827 100%);
+    color: #e2e8f0;
+  }
+  
+  .dashboard-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  .stat-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.92) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 1.25rem;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #6366f1, #0ea5e9);
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(99, 102, 241, 0.15);
+    border-color: rgba(99, 102, 241, 0.3);
+  }
+  
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin: 0.5rem 0;
+    background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .stat-label {
+    font-size: 0.95rem;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  .stat-action {
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0.5rem 1rem;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: #a5b4fc;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+  }
+  
+  .stat-action:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #c7d2fe;
+  }
+  
+  .icon-users { background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%); color: white; }
+  .icon-products { background: linear-gradient(135deg, #10b981 0%, #047857 100%); color: white; }
+  .icon-orders { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; }
+  .icon-payments { background: linear-gradient(135deg, #ef4444 0%, #991b1b 100%); color: white; }
+  
+  .overview-section {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.92) 100%);
+    border: 1px solid rgba(148, 163, 184, 0.15);
+    border-radius: 1.25rem;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .overview-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #eef2ff;
+    margin-bottom: 1rem;
+  }
+  
+  .overview-text {
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-wrapper {
+      grid-template-columns: 1fr;
+      padding: 1rem;
+      gap: 1rem;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+  <!-- Users Card -->
+  <a href="{% url 'admin:users_customuser_changelist' %}" style="text-decoration: none;">
+    <div class="stat-card">
+      <div class="stat-icon icon-users">👥</div>
+      <div class="stat-label">Registered Users</div>
+      <div class="stat-value">{{ dashboard_counts.users.count }}</div>
+      <span class="stat-action">View Users →</span>
+    </div>
+  </a>
+
+  <!-- Products Card -->
+  <a href="{% url 'admin:products_product_changelist' %}" style="text-decoration: none;">
+    <div class="stat-card">
+      <div class="stat-icon icon-products">📦</div>
+      <div class="stat-label">Active Products</div>
+      <div class="stat-value">{{ dashboard_counts.products.count }}</div>
+      <span class="stat-action">View Products →</span>
+    </div>
+  </a>
+
+  <!-- Orders Card -->
+  <a href="{% url 'admin:orders_order_changelist' %}" style="text-decoration: none;">
+    <div class="stat-card">
+      <div class="stat-icon icon-orders">🛒</div>
+      <div class="stat-label">Total Orders</div>
+      <div class="stat-value">{{ dashboard_counts.orders.count }}</div>
+      <span class="stat-action">View Orders →</span>
+    </div>
+  </a>
+
+  <!-- Payments Card -->
+  <a href="{% url 'admin:payments_payment_changelist' %}" style="text-decoration: none;">
+    <div class="stat-card">
+      <div class="stat-icon icon-payments">💳</div>
+      <div class="stat-label">Payments</div>
+      <div class="stat-value">{{ dashboard_counts.payments.count }}</div>
+      <span class="stat-action">View Payments →</span>
+    </div>
+  </a>
+
+  <!-- Overview Section -->
+  <div class="overview-section">
+    <h2 class="overview-title">✨ Welcome to Achol Admin Dashboard</h2>
+    <p class="overview-text">
+      This modern dashboard provides quick access to your store's key metrics and management areas. 
+      Click any card above to manage users, products, orders, or payments. Use the sidebar for advanced options and configuration.
+    </p>
+    <p class="overview-text" style="margin-top: 1rem; font-size: 0.9rem; color: #64748b;">
+      Last updated: <span id="timestamp"></span>
+    </p>
+  </div>
+</div>
+
+<script>
+  document.getElementById('timestamp').textContent = new Date().toLocaleString();
+</script>
+{% endblock %}

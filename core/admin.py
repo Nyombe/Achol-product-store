@@ -27,7 +27,7 @@ def _custom_admin_index(request, extra_context=None):
     return _original_index(request, extra_context)
 
 admin.site.index = _custom_admin_index
-admin.site.index_template = 'admin/index.html'
+admin.site.index_template = 'admin/jazzmin/dashboard.html'
 
 
 

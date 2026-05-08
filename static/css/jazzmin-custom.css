@@ -76,8 +76,52 @@ body.login-page, .register-page {
 
 .small-box {
   border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.92) 100%);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  transition: all 0.3s ease;
+}
+
+.small-box:hover {
+  transform: translateY(-4px);
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 .card .card-body {
   padding: 1.6rem !important;
+}
+
+/* Login form enhancements */
+.login-box-body, .login-box-msg {
+  background: transparent !important;
+  border: none !important;
+}
+
+.form-control {
+  background-color: rgba(15, 23, 42, 0.8) !important;
+  border-radius: 0.75rem !important;
+  padding: 0.875rem 1rem !important;
+}
+
+/* Admin input styling */
+input[type="text"], input[type="password"], input[type="email"], textarea, select {
+  border-radius: 0.75rem !important;
+  border-color: rgba(148, 163, 184, 0.2) !important;
+  background: rgba(15, 23, 42, 0.8) !important;
+  color: #e2e8f0 !important;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .card {
+    border-radius: 0.75rem !important;
+  }
+  
+  .sidebar-dark-primary {
+    width: 100% !important;
+  }
 }

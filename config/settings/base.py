@@ -272,6 +272,7 @@ JAZZMIN_SETTINGS = {
     "site_logo_classes": "brand-image elevation-3",
     "copyright": "Achol Fashion Store Ltd",
     "search_model": ["users.CustomUser", "products.Product", "orders.Order", "payments.Payment"],
+    "dashboard_view": "admin:index",
     "topmenu_links": [
         {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
         {"name": "Analytics", "url": "/management/analytics/", "permissions": ["auth.view_user"]},
