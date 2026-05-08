@@ -28,8 +28,8 @@ INSTALLED_APPS = [
     'django_filters',
     'corsheaders',
     'rest_framework_simplejwt',
-    'axes',
-    'admin_honeypot',
+    # 'axes',
+    # 'admin_honeypot',
     'django_otp',
     'django_otp.plugins.otp_totp',
     
@@ -53,9 +53,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_otp.middleware.OTPMiddleware',
-    'axes.middleware.AxesMiddleware',
-    'core.middleware.AdminAccessMiddleware',
-    'core.middleware.SecurityHeadersMiddleware',
+    # 'axes.middleware.AxesMiddleware',
+    # 'core.middleware.AdminAccessMiddleware',
+    # 'core.middleware.SecurityHeadersMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -164,7 +164,7 @@ AXES_ENABLE_ACCESS_FAILURE_LOG = True
 AXES_IP_METADATA_ORDER = ('HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR')
 
 AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesStandaloneBackend',
+    # 'axes.backends.AxesStandaloneBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
