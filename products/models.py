@@ -233,6 +233,7 @@ class PriceHistory(BaseModel):
         max_length=255,
         blank=True,
         choices=[
+            ('initial', 'Initial Price'),
             ('promotion', 'Promotion'),
             ('discount', 'Discount'),
             ('price_adjustment', 'Price Adjustment'),
@@ -299,11 +300,13 @@ class ProductReview(BaseModel):
 def track_price_change(sender, instance, created, **kwargs):
     """Signal to track price changes in history."""
     if created:
-        # Create initial price history record
-        PriceHistory.objects.create(
-            product=instance,
-            old_price=instance.price,
-            new_price=instance.price,
-            change_reason='initial',
-            notes='Product created'
-        )
+        try:
+            PriceHistory.objects.create(
+                product=instance,
+                old_price=instance.price,
+                new_price=instance.price,
+                change_reason='initial',
+                notes='Product created'
+            )
+        except Exception as e:
+            print(f"Error creating initial price history: {e}")
