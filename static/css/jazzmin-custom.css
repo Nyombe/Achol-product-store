@@ -1,0 +1,83 @@
+/* Jazzmin custom admin styling */
+body {
+  background: radial-gradient(circle at top left, rgba(79, 70, 229, 0.18), transparent 32%),
+              linear-gradient(180deg, #030712 0%, #0b1222 100%);
+}
+
+body.login-page, .register-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, rgba(129, 140, 248, 0.2), transparent 30%),
+              linear-gradient(180deg, #0f172a 0%, #020617 100%);
+}
+
+.login-box, .register-box, .card, .card-body, .content-wrapper, .main-footer, .main-header {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border: 1px solid rgba(148, 163, 184, 0.12) !important;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.28) !important;
+}
+
+.brand-link {
+  letter-spacing: 0.08em !important;
+  font-weight: 800 !important;
+  color: #eef2ff !important;
+}
+
+.navbar, .main-sidebar, .main-footer, .main-header {
+  background: linear-gradient(135deg, #0f172a 0%, #111827 100%) !important;
+}
+
+.navbar .nav-link {
+  color: #dbeafe !important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link:hover {
+  background-color: rgba(99, 102, 241, 0.18) !important;
+  color: #eef2ff !important;
+}
+
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link {
+  color: #cbd5e1 !important;
+}
+
+.card .card-header {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15) !important;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
+  background: #6366f1 !important;
+  border-color: #4f46e5 !important;
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.22);
+}
+
+.form-control, .select2-container .select2-selection--single {
+  border-radius: 1rem !important;
+  border-color: rgba(148, 163, 184, 0.2) !important;
+  background: rgba(15, 23, 42, 0.92) !important;
+  color: #e2e8f0 !important;
+}
+
+.form-control:focus, .select2-container--default .select2-selection--single:focus {
+  box-shadow: 0 0 0 0.25rem rgba(99, 102, 241, 0.25) !important;
+}
+
+.content-header .breadcrumb a,
+.content-header .breadcrumb li {
+  color: #94a3b8 !important;
+}
+
+.table thead th {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.18) !important;
+}
+
+.table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.05) !important;
+}
+
+.small-box {
+  border-radius: 1.5rem;
+}
+
+.card .card-body {
+  padding: 1.6rem !important;
+}
