@@ -71,7 +71,7 @@
                             <div class="relative flex-1">
                                 <input type="text" name="q" placeholder="Search..." required class="pl-9 pr-4 py-2 border border-gray-200 border-l-0 rounded-r-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all w-32 lg:w-48 bg-white text-gray-800">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                                    <svg style="width: 16px; height: 16px;" class="text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                                 </div>
                             </div>
                         </form>
@@ -95,7 +95,7 @@
                     {% endif %}
                     
                     <a href="{% url 'cart:cart' %}" class="relative text-gray-600 hover:text-blue-600 transition duration-150 group">
-                        <svg class="w-6 h-6 transform group-hover:scale-110 transition duration-200 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
+                        <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
                         {% if user.is_authenticated and user.cart.items.count > 0 %}
                             <span class="absolute -top-1 -right-2 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold text-white bg-red-600 rounded-full border-2 border-white shadow-sm">
                                 {{ user.cart.items.count }}
@@ -107,16 +107,16 @@
                 <!-- Hamburger Icon (Mobile Only) -->
                 <div class="md:hidden flex items-center">
                     <a href="{% url 'cart:cart' %}" class="relative text-gray-600 mr-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
+                        <svg style="width: 24px; height: 24px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
                         {% if user.is_authenticated and user.cart.items.count > 0 %}
                             <span class="absolute -top-1 -right-2 inline-flex items-center justify-center px-1.5 py-0.5 text-[0.6rem] font-bold text-white bg-red-600 rounded-full">
                                 {{ user.cart.items.count }}
                             </span>
                         {% endif %}
                     </a>
-                    <button id="mobile-menu-button" type="button" class="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 p-2 rounded-xl bg-blue-50/50">
+                    <button id="mobile-menu-button" type="button" class="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 p-2 rounded-xl bg-blue-50/50" style="width: 44px; height: 44px; display: flex; items-center; justify-center;">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
@@ -137,7 +137,7 @@
                     <div class="relative flex-1">
                         <input type="text" name="q" placeholder="Search..." required class="w-full pl-9 pr-4 py-2 border border-gray-300 border-l-0 rounded-r-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <svg class="h-4 w-4 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
+                            <svg style="width: 16px; height: 16px;" class="text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
                         </div>
                     </div>
                 </form>
