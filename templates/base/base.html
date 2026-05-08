@@ -114,7 +114,10 @@
                             </span>
                         {% endif %}
                     </a>
-                    <button id="mobile-menu-button" type="button" class="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 p-2 rounded-xl bg-blue-50/50" style="width: 44px; height: 44px; display: flex; items-center; justify-center;">
+                    <button id="mobile-menu-button" type="button" 
+                            onclick="const m = document.getElementById('mobile-menu'); const h = m.classList.toggle('hidden'); document.getElementById('menu-icon-path').setAttribute('d', h ? 'M4 6h16M4 12h16M4 18h16' : 'M6 18L18 6M6 6l12 12');"
+                            class="text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 p-2 rounded-xl bg-blue-50/50" 
+                            style="width: 44px; height: 44px; display: flex; items-center; justify-center;">
                         <span class="sr-only">Open main menu</span>
                         <svg style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -280,23 +283,7 @@
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Mobile Menu Toggle Logic
-            const mobileBtn = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileIconPath = document.getElementById('menu-icon-path');
-
-            if (mobileBtn && mobileMenu) {
-                mobileBtn.onclick = function(e) {
-                    e.preventDefault();
-                    console.log("Menu toggled");
-                    const isNowHidden = mobileMenu.classList.toggle('hidden');
-                    if (!isNowHidden) {
-                        mobileIconPath.setAttribute('d', 'M6 18L18 6M6 6l12 12');
-                    } else {
-                        mobileIconPath.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
-                    }
-                };
-            }
+            // Mobile Menu Toggle Logic (Handled inline on button)
         });
     </script>
     
