@@ -268,7 +268,8 @@ JAZZMIN_SETTINGS = {
     "site_header": "Achol Fashion Store",
     "site_brand": "ACHOL MANAGEMENT",
     "welcome_sign": "Welcome to the Achol Management Portal",
-    "site_logo": None,
+    "site_logo": "img/admin-logo.svg",
+    "site_logo_classes": "brand-image elevation-3",
     "copyright": "Achol Fashion Store Ltd",
     "search_model": ["users.CustomUser", "products.Product", "orders.Order", "payments.Payment"],
     "topmenu_links": [

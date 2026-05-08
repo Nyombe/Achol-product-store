@@ -1,0 +1,71 @@
+{% extends "admin/index.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-info">
+            <div class="inner">
+                <h3>{{ dashboard_counts.users.count }}</h3>
+                <p>Registered Users</p>
+            </div>
+            <div class="icon"><i class="fas fa-users"></i></div>
+            <a href="{% url 'admin:users_customuser_changelist' %}" class="small-box-footer">
+                Manage Users <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{{ dashboard_counts.products.count }}</h3>
+                <p>Active Products</p>
+            </div>
+            <div class="icon"><i class="fas fa-box-open"></i></div>
+            <a href="{% url 'admin:products_product_changelist' %}" class="small-box-footer">
+                View Products <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{{ dashboard_counts.orders.count }}</h3>
+                <p>Orders</p>
+            </div>
+            <div class="icon"><i class="fas fa-shopping-cart"></i></div>
+            <a href="{% url 'admin:orders_order_changelist' %}" class="small-box-footer">
+                View Orders <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-6">
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{{ dashboard_counts.payments.count }}</h3>
+                <p>Payments</p>
+            </div>
+            <div class="icon"><i class="fas fa-credit-card"></i></div>
+            <a href="{% url 'admin:payments_payment_changelist' %}" class="small-box-footer">
+                View Payments <i class="fas fa-arrow-circle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card card-outline card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Quick Overview</h3>
+            </div>
+            <div class="card-body">
+                <p class="lead">Your Achol admin dashboard is now enriched with real-time counts and shortcuts to the key management areas.</p>
+                <p class="text-muted">Use the cards above to jump to Users, Products, Orders, or Payments.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ block.super }}
+{% endblock %}
