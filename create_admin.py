@@ -1,25 +1,42 @@
 #!/usr/bin/env python
 import os
 import django
+import sys
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+# Add project root to sys.path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Use environment variable or default to base
+settings_module = os.environ.get('DJANGO_SETTINGS_MODULE', 'config.settings.development')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 django.setup()
 
 from users.models import CustomUser
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
-# Delete existing admin
-CustomUser.objects.filter(username='admin').delete()
+print(f"Running admin reset with {settings_module}...")
 
-# Create fresh superuser
-admin = CustomUser.objects.create_superuser(
-    username='admin',
-    email='admin@ecommerce.com',
-    password='admin123'
-)
+# 1. Clean up existing admin if it exists
+admin_username = 'admin'
+admin_password = 'AcholAdmin2024!'
 
-print("✓ Superuser created successfully!")
-print(f"  Username: {admin.username}")
-print(f"  Email: {admin.email}")
-print(f"  is_staff: {admin.is_staff}")
-print(f"  is_superuser: {admin.is_superuser}")
-print(f"  is_active: {admin.is_active}")
+print(f"Updating account for: {admin_username}")
+user = CustomUser.objects.filter(username=admin_username).first()
+
+if user:
+    user.set_password(admin_password)
+    user.is_superuser = True
+    user.is_staff = True
+    user.save()
+    print("✓ Existing admin password updated.")
+else:
+    admin = CustomUser.objects.create_superuser(
+        username=admin_username,
+        email='admin@achol.com',
+        password=admin_password
+    )
+    print("✓ New superuser created successfully!")
+
+# 2. Ensure MFA/OTP is cleared for a fresh start
+TOTPDevice.objects.filter(user__username=admin_username).delete()
+print("✓ MFA/OTP devices cleared. You can now login with just password.")
