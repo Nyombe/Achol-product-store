@@ -123,13 +123,13 @@
 
                 <div class="mt-auto">
                     <!-- Form connects to the add to cart cart view. The existing code uses an ajax view, but for simple usage we wrap it. -->
-                    <form method="post" action="{% url 'cart:add_to_cart' object.slug %}" id="add-to-cart-form" class="flex items-end gap-4">
+                    <form method="post" action="{% url 'cart:add_to_cart' object.slug %}" id="add-to-cart-form" class="flex flex-col items-stretch gap-4 sm:flex-row sm:items-end">
                         {% csrf_token %}
-                        <div class="w-1/4">
+                        <div class="w-full sm:w-1/4">
                             <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">Qty</label>
                             <input type="number" name="quantity" id="quantity" value="1" min="1" max="{{ object.stock|default:1 }}" class="block w-full border border-gray-200 rounded-xl px-4 py-3.5 focus:ring-indigo-500 focus:border-indigo-500 text-center font-semibold bg-gray-50" {% if object.stock <= 0 %}disabled{% endif %}>
                         </div>
-                        <button type="button" onclick="submitCartForm()" class="flex-grow flex justify-center items-center py-3.5 px-6 border border-transparent rounded-xl shadow-md text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:-translate-y-0.5 {% if object.stock <= 0 %}opacity-50 cursor-not-allowed{% endif %}" {% if object.stock <= 0 %}disabled{% endif %}>
+                        <button type="button" onclick="submitCartForm()" class="w-full sm:flex-grow flex justify-center items-center py-3.5 px-6 border border-transparent rounded-xl shadow-md text-base font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transform transition-all duration-200 hover:-translate-y-0.5 {% if object.stock <= 0 %}opacity-50 cursor-not-allowed{% endif %}" {% if object.stock <= 0 %}disabled{% endif %}>
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z"></path></svg>
                             Add to Cart
                         </button>

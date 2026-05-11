@@ -116,7 +116,8 @@
                     </a>
                     <button id="mobile-menu-button" type="button" 
                             onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
-                            ontouchstart="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                            aria-controls="mobile-menu"
+                            aria-expanded="false"
                             class="relative z-[70] text-blue-600 hover:text-blue-800 focus:outline-none p-3 rounded-xl bg-blue-50/80 shadow-sm border border-blue-100" 
                             style="width: 48px; height: 48px; display: flex; align-items: center; justify-center; -webkit-tap-highlight-color: transparent;">
                         <span class="sr-only">Open main menu</span>
