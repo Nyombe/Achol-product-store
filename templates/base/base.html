@@ -115,8 +115,8 @@
                         {% endif %}
                     </a>
                     <button id="mobile-menu-button" type="button" 
-                            onclick="var m=document.getElementById('mobile-menu'); if(m.style.display=='block'){m.style.display='none';}else{m.style.display='block';}"
-                            ontouchstart="var m=document.getElementById('mobile-menu'); if(m.style.display=='block'){m.style.display='none';}else{m.style.display='block';}"
+                            onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                            ontouchstart="document.getElementById('mobile-menu').classList.toggle('hidden')"
                             class="relative z-[70] text-blue-600 hover:text-blue-800 focus:outline-none p-3 rounded-xl bg-blue-50/80 shadow-sm border border-blue-100" 
                             style="width: 48px; height: 48px; display: flex; align-items: center; justify-center; -webkit-tap-highlight-color: transparent;">
                         <span class="sr-only">Open main menu</span>
@@ -128,7 +128,7 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden border-t border-gray-100 bg-gray-50" style="display: none !important;">
+        <div id="mobile-menu" class="md:hidden border-t border-gray-100 bg-gray-50 hidden">
             <!-- Mobile Search -->
             <div class="p-4 border-b border-gray-200">
                 <form action="{% url 'products:search' %}" method="GET" class="relative flex">
