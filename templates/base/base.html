@@ -286,6 +286,15 @@
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
             // Mobile Menu Toggle Logic (Handled inline on button)
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isHidden = mobileMenu.classList.contains('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', !isHidden);
+                });
+            }
         });
     </script>
     
